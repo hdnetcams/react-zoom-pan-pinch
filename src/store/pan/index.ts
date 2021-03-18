@@ -36,8 +36,9 @@ export function handlePanning(event) {
   // Get Position
   const mouseX = clientX - x;
   const mouseY = clientY - y;
-  const newPositionX = lockAxisX ? positionX : mouseX;
-  const newPositionY = lockAxisY ? positionY : mouseY;
+  // see https://github.com/prc5/react-zoom-pan-pinch/issues/96
+  const newPositionX = lockAxisX ? positionX : Math.max(Math.min(mouseX,10),this.bounds.minPositionX-10);
+  const newPositionY = lockAxisY ? positionY : Math.max(Math.min(mouseY,10),this.bounds.minPositionY-10);
 
   // padding
   const paddingValue = padding && scale >= minScale ? paddingSize : 0;

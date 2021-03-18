@@ -32,7 +32,10 @@ export function animate(animationName, animationTime, callback) {
       this.animation = null;
     } else {
       callback(step);
-      requestAnimationFrame(this.animation);
+      if (this.animation) {
+        // see https://github.com/prc5/react-zoom-pan-pinch/issues/67
+        requestAnimationFrame(this.animation);
+      }
     }
   };
 
